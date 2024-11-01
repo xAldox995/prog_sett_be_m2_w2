@@ -60,4 +60,10 @@ public class DipendenteController {
         return dipendeteUp;
     }
 
+    @DeleteMapping("/{id_dipendente}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void findDipendenteByIdAndDel(@PathVariable long id_dipendente) {
+        this.dipendenteServ.findDipendenteByIdAndDel(id_dipendente);
+    }
+
 }

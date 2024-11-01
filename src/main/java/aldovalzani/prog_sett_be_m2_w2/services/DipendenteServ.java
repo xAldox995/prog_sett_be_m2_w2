@@ -54,4 +54,8 @@ public class DipendenteServ {
         return this.dipendenteRepo.save(dipFound);
     }
 
+    public void findDipendenteByIdAndDel(long id_dipendente) {
+        Dipendente dipenteToDel = this.findDipendenteById(id_dipendente);
+        this.dipendenteRepo.delete(dipenteToDel);
+    }
 }
