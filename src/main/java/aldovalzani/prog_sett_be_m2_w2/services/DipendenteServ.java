@@ -37,4 +37,21 @@ public class DipendenteServ {
                 orElseThrow(() -> new NotFoundException(id_dipendente));
     }
 
+    public Dipendente findDipendenteByIdAndUp(long id_dipendente, NewDipendenteDTO body) {
+        Dipendente dipFound = this.findDipendenteById(id_dipendente);
+        if (!dipFound.getEmail().equals(body.email())) {
+            this.dipendenteRepo.findByEmail(body.email()).ifPresent(
+                    dipendente -> {
+                        throw new BadRequestException("Email " + body.email() + " già in uso");
+                    }
+            );
+        }
+        dipFound.setCognome(body.cognome());
+        dipFound.setEmail(body.email());
+        dipFound.setNome(body.nome());
+        dipFound.setUsername(body.username());
+        System.out.println("Aggiornamento dati completato per dipendente con ID: " + id_dipendente);
+        return this.dipendenteRepo.save(dipFound);
+    }
+
 }
