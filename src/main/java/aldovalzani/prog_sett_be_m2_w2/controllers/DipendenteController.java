@@ -39,4 +39,10 @@ public class DipendenteController {
                                             @RequestParam(defaultValue = "30") int size) {
         return this.dipendenteServ.findAllDipendenti(page, size);
     }
+
+    @GetMapping("/{id_dipendente}")
+    public Dipendente findDipendenteById(@PathVariable long id_dipendente) {
+        return this.dipendenteServ.findDipendenteById(id_dipendente);
+    }
+
 }

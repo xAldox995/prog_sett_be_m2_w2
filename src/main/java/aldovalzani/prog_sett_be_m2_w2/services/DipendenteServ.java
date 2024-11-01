@@ -3,6 +3,7 @@ package aldovalzani.prog_sett_be_m2_w2.services;
 import aldovalzani.prog_sett_be_m2_w2.dto.NewDipendenteDTO;
 import aldovalzani.prog_sett_be_m2_w2.entities.Dipendente;
 import aldovalzani.prog_sett_be_m2_w2.exceptions.BadRequestException;
+import aldovalzani.prog_sett_be_m2_w2.exceptions.NotFoundException;
 import aldovalzani.prog_sett_be_m2_w2.repositories.DipendenteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +30,11 @@ public class DipendenteServ {
         if (size > 30) size = 30;
         Pageable pageable = PageRequest.of(page, size);
         return this.dipendenteRepo.findAll(pageable);
+    }
+
+    public Dipendente findDipendenteById(long id_dipendente) {
+        return this.dipendenteRepo.findById(id_dipendente).
+                orElseThrow(() -> new NotFoundException(id_dipendente));
     }
 
 }
