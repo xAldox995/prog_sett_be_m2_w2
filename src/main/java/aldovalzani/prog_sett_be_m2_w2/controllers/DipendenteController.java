@@ -5,6 +5,7 @@ import aldovalzani.prog_sett_be_m2_w2.entities.Dipendente;
 import aldovalzani.prog_sett_be_m2_w2.exceptions.BadRequestException;
 import aldovalzani.prog_sett_be_m2_w2.services.DipendenteServ;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -31,5 +32,11 @@ public class DipendenteController {
             throw new BadRequestException("Ci sono errori nel payload! " + message);
         }
         return this.dipendenteServ.saveDipendente(body);
+    }
+
+    @GetMapping
+    public Page<Dipendente> findAllDipendti(@RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "30") int size) {
+        return this.dipendenteServ.findAllDipendenti(page, size);
     }
 }
