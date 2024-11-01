@@ -1,6 +1,9 @@
 package aldovalzani.prog_sett_be_m2_w2.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,15 +23,16 @@ public class Viaggio {
     private long id;
     private String destinazione;
     private LocalDate data_partenza;
+    @Setter(AccessLevel.NONE)
     private String stato;
-    @ManyToOne
-    @JoinColumn(name = "id_dipendente")
-    private Dipendente dipendente;
 
-    public Viaggio(LocalDate data_partenza, String destinazione, Dipendente dipendente, String stato) {
+    public Viaggio(LocalDate data_partenza, String destinazione) {
         this.data_partenza = data_partenza;
         this.destinazione = destinazione;
-        this.dipendente = dipendente;
-        this.stato = stato;
+        this.stato = "In programma";
+    }
+
+    public void setStato() {
+        this.stato = "Completato";
     }
 }
