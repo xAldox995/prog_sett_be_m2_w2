@@ -39,4 +39,9 @@ public class ViaggioController {
                                        @RequestParam(defaultValue = "50") int size) {
         return this.viaggioServ.findAllViaggi(page, size);
     }
+
+    @GetMapping("/{id_viaggio}")
+    public Viaggio findVaiggioById(@PathVariable long id_viaggio) {
+        return this.viaggioServ.findViaggioById(id_viaggio);
+    }
 }

@@ -3,6 +3,7 @@ package aldovalzani.prog_sett_be_m2_w2.services;
 import aldovalzani.prog_sett_be_m2_w2.dto.NewViaggioDTO;
 import aldovalzani.prog_sett_be_m2_w2.entities.Viaggio;
 import aldovalzani.prog_sett_be_m2_w2.exceptions.BadRequestException;
+import aldovalzani.prog_sett_be_m2_w2.exceptions.NotFoundException;
 import aldovalzani.prog_sett_be_m2_w2.repositories.ViaggioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,5 +32,10 @@ public class ViaggioServ {
         if (size > 50) size = 50;
         Pageable pageable = PageRequest.of(page, size);
         return this.viaggioRepo.findAll(pageable);
+    }
+
+    public Viaggio findViaggioById(long id_viaggio) {
+        return this.viaggioRepo.findById(id_viaggio).
+                orElseThrow(() -> new NotFoundException(id_viaggio));
     }
 }
