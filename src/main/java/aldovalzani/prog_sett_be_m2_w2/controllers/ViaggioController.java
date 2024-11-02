@@ -62,4 +62,8 @@ public class ViaggioController {
         this.viaggioServ.findViaggioByIdAndDel(id_viaggio);
     }
 
+    @PatchMapping("/{id_viaggio}/stato_viaggio")
+    public Viaggio findViaggioByIdAndPatchStato(@PathVariable long id_viaggio, @RequestBody NewViaggioDTO body) {
+        return viaggioServ.patchViaggioStato(id_viaggio, body.stato());
+    }
 }

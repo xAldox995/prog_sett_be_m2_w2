@@ -1,5 +1,6 @@
 package aldovalzani.prog_sett_be_m2_w2.entities;
 
+import aldovalzani.prog_sett_be_m2_w2.exceptions.StatoException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,7 +31,11 @@ public class Viaggio {
         this.stato = "In programma";
     }
 
-    public void setStato() {
-        this.stato = "Completato";
+    public void setStato(String stato) {
+        if (stato.equals("Completato") || stato.equals("In programma")) {
+            this.stato = stato;
+        } else {
+            throw new StatoException("Stato non valido. Deve essere 'Completato' o 'In Programma'");
+        }
     }
 }

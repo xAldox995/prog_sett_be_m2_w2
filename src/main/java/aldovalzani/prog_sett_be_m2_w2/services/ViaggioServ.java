@@ -58,4 +58,10 @@ public class ViaggioServ {
         Viaggio viaggioToDel = this.findViaggioById(id_viaggio);
         this.viaggioRepo.delete(viaggioToDel);
     }
+
+    public Viaggio patchViaggioStato(long id_viaggio, String stato) {
+        Viaggio viaggioToPatch = findViaggioById(id_viaggio);
+        viaggioToPatch.setStato(stato);
+        return viaggioRepo.save(viaggioToPatch);
+    }
 }
