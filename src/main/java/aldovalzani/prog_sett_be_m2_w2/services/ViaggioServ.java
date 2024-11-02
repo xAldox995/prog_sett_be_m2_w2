@@ -5,6 +5,9 @@ import aldovalzani.prog_sett_be_m2_w2.entities.Viaggio;
 import aldovalzani.prog_sett_be_m2_w2.exceptions.BadRequestException;
 import aldovalzani.prog_sett_be_m2_w2.repositories.ViaggioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,5 +25,11 @@ public class ViaggioServ {
         );
         Viaggio newViaggio = new Viaggio(body.data_partenza(), body.destinazione());
         return this.viaggioRepo.save(newViaggio);
+    }
+
+    public Page<Viaggio> findAllViaggi(int page, int size) {
+        if (size > 50) size = 50;
+        Pageable pageable = PageRequest.of(page, size);
+        return this.viaggioRepo.findAll(pageable);
     }
 }

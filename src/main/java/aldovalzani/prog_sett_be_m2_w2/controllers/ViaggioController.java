@@ -5,6 +5,7 @@ import aldovalzani.prog_sett_be_m2_w2.entities.Viaggio;
 import aldovalzani.prog_sett_be_m2_w2.exceptions.BadRequestException;
 import aldovalzani.prog_sett_be_m2_w2.services.ViaggioServ;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -31,5 +32,11 @@ public class ViaggioController {
             throw new BadRequestException("Ci sono errori nel payload! " + message);
         }
         return this.viaggioServ.saveViaggio(body);
+    }
+
+    @GetMapping
+    public Page<Viaggio> findAllViaggi(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "50") int size) {
+        return this.viaggioServ.findAllViaggi(page, size);
     }
 }
