@@ -54,7 +54,7 @@ public class DipendenteController {
                     .collect(Collectors.joining(". "));
             throw new BadRequestException("Ci sono stati errori nel payload! " + message);
         }
-        return this.dipendenteServ.saveDipendente(body);
+        return this.dipendenteServ.findDipendenteByIdAndUp(id_dipendente, body);
     }
 
     @DeleteMapping("/{id_dipendente}")

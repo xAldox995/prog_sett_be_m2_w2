@@ -53,4 +53,9 @@ public class ViaggioServ {
         viagFound.setDestinazione(body.destinazione());
         return viaggioRepo.save(viagFound);
     }
+
+    public void findViaggioByIdAndDel(long id_viaggio) {
+        Viaggio viaggioToDel = this.findViaggioById(id_viaggio);
+        this.viaggioRepo.delete(viaggioToDel);
+    }
 }

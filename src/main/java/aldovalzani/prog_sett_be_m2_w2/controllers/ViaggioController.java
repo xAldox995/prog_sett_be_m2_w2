@@ -41,7 +41,7 @@ public class ViaggioController {
     }
 
     @GetMapping("/{id_viaggio}")
-    public Viaggio findVaiggioById(@PathVariable long id_viaggio) {
+    public Viaggio findViaggioById(@PathVariable long id_viaggio) {
         return this.viaggioServ.findViaggioById(id_viaggio);
     }
 
@@ -53,6 +53,13 @@ public class ViaggioController {
                     .collect(Collectors.joining(". "));
             throw new BadRequestException("Ci sono stati errori nel payload! " + message);
         }
-        return this.viaggioServ.saveViaggio(body);
+        return this.viaggioServ.findViaggioByIdAndUp(id_viaggio, body);
     }
+
+    @DeleteMapping("/{id_viaggio}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void findViaggioByIdAndDel(@PathVariable long id_viaggio) {
+        this.viaggioServ.findViaggioByIdAndDel(id_viaggio);
+    }
+
 }
