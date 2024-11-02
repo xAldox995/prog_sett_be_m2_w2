@@ -38,4 +38,19 @@ public class ViaggioServ {
         return this.viaggioRepo.findById(id_viaggio).
                 orElseThrow(() -> new NotFoundException(id_viaggio));
     }
+
+    public Viaggio findViaggioByIdAndUp(long id_viaggio, NewViaggioDTO body) {
+        Viaggio viagFound = this.findViaggioById(id_viaggio);
+        if (!viagFound.getDestinazione().equals(body.destinazione()) ||
+                !viagFound.getDataPartenza().equals(body.data_partenza())) {
+            this.viaggioRepo.findByDestinazioneAndDataPartenza(body.destinazione(), body.data_partenza())
+                    .ifPresent(viaggio -> {
+                        throw new BadRequestException("Viaggio con destinazione: " + body.destinazione() +
+                                " e con data: " + body.data_partenza() + " è già esistente");
+                    });
+        }
+        viagFound.setDataPartenza(body.data_partenza());
+        viagFound.setDestinazione(body.destinazione());
+        return viaggioRepo.save(viagFound);
+    }
 }

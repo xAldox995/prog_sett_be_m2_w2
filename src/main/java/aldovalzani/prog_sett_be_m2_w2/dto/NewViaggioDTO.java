@@ -11,7 +11,7 @@ public record NewViaggioDTO(
         @NotEmpty(message = "Scrivi qualcosa")
         String destinazione,
         @NotNull(message = "La data del viaggio è obbligatoria")
-        @Future(message = "La data del viaggio deve essere futura")
+        @Future(message = "La data deve essere nel futuro")
         LocalDate data_partenza
 ) {
 }

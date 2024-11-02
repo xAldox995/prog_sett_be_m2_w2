@@ -44,4 +44,15 @@ public class ViaggioController {
     public Viaggio findVaiggioById(@PathVariable long id_viaggio) {
         return this.viaggioServ.findViaggioById(id_viaggio);
     }
+
+    @PutMapping("/{id_viaggio}")
+    public Viaggio findViaggioNyIdAndUp(@PathVariable long id_viaggio,
+                                        @RequestBody @Validated NewViaggioDTO body, BindingResult validationResult) {
+        if (validationResult.hasErrors()) {
+            String message = validationResult.getAllErrors().stream().map(objectError -> objectError.getDefaultMessage())
+                    .collect(Collectors.joining(". "));
+            throw new BadRequestException("Ci sono stati errori nel payload! " + message);
+        }
+        return this.viaggioServ.saveViaggio(body);
+    }
 }
