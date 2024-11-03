@@ -23,11 +23,13 @@ public class Dipendente {
     private String nome;
     private String cognome;
     private String email;
+    private String avatar_url;
 
     public Dipendente(String cognome, String email, String nome, String username) {
         this.cognome = cognome;
         this.email = email;
         this.nome = nome;
         this.username = username;
+        this.avatar_url = "https://ui-avatars.com/api/?name=" + getNome() + "+" + getCognome();
     }
 }

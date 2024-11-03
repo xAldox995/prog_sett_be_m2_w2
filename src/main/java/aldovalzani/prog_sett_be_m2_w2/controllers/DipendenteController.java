@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.stream.Collectors;
 
@@ -62,5 +63,12 @@ public class DipendenteController {
     public void findDipendenteByIdAndDel(@PathVariable long id_dipendente) {
         this.dipendenteServ.findDipendenteByIdAndDel(id_dipendente);
     }
+
+    @PatchMapping("/{id_dipendente}/avatar")
+    public String patchDipendenteAvatar(@PathVariable long id_dipendente,
+                                        @RequestParam("avatar") MultipartFile file) {
+        return this.dipendenteServ.patchDipendenteAvatar(id_dipendente, file);
+    }
+
 
 }
