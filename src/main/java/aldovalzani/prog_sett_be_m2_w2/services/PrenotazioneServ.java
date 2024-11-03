@@ -46,4 +46,22 @@ public class PrenotazioneServ {
         return this.prenotazioneRepo.findById(id_prenotazione).
                 orElseThrow(() -> new NotFoundException(id_prenotazione));
     }
+
+    public Prenotazione findPrenotazioneAndUp(long id_prenotazione, NewPrenotazioneDTO body) {
+        Prenotazione prenotazioneToUp = findDPrenotazioneById(id_prenotazione);
+        Dipendente dipendenteToMod = dipendenteServ.findDipendenteById(body.id_dipendente());
+        Viaggio viaggioToMod = viaggioServ.findViaggioById(body.id_viaggio());
+        prenotazioneRepo.findByDipendente_EmailAndViaggio_DataPartenza(dipendenteToMod.getEmail(), viaggioToMod.getDataPartenza())
+                .ifPresent(prenotazione -> {
+                    if (prenotazione.getId() != prenotazioneToUp.getId()) {
+                        throw new BadRequestException("Il dipendente con email: " + dipendenteToMod.getEmail()
+                                + " ha già una prenotazione in data: " + viaggioToMod.getDataPartenza());
+                    }
+                });
+        prenotazioneToUp.setData_richiesta(body.data_richiesta());
+        prenotazioneToUp.setDipendente(dipendenteToMod);
+        prenotazioneToUp.setNote(body.note());
+        prenotazioneToUp.setViaggio(viaggioToMod);
+        return this.prenotazioneRepo.save(prenotazioneToUp);
+    }
 }

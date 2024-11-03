@@ -43,4 +43,15 @@ public class PrenotazioneController {
     public Prenotazione findDPrenotazioneById(@PathVariable long id_prenotazione) {
         return this.prenotazioneServ.findDPrenotazioneById(id_prenotazione);
     }
+
+    @PutMapping("/{id_prenotazione}")
+    public Prenotazione findPrenotazioneAndUp(@PathVariable long id_prenotazione,
+                                              @RequestBody @Validated NewPrenotazioneDTO body, BindingResult validationResult) {
+        if (validationResult.hasErrors()) {
+            String message = validationResult.getAllErrors().stream().map(objectError -> objectError.getDefaultMessage())
+                    .collect(Collectors.joining(". "));
+            throw new BadRequestException("Ci sono stati errori nel payload! " + message);
+        }
+        return this.prenotazioneServ.findPrenotazioneAndUp(id_prenotazione, body);
+    }
 }
