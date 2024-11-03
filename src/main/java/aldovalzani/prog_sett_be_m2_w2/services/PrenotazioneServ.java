@@ -7,6 +7,9 @@ import aldovalzani.prog_sett_be_m2_w2.entities.Viaggio;
 import aldovalzani.prog_sett_be_m2_w2.exceptions.BadRequestException;
 import aldovalzani.prog_sett_be_m2_w2.repositories.PrenotazioneRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +33,11 @@ public class PrenotazioneServ {
                 });
         Prenotazione newPrenotazione = new Prenotazione(body.data_richiesta(), dipFound, body.note(), viaggioFound);
         return prenotazioneRepo.save(newPrenotazione);
+    }
+
+    public Page<Prenotazione> findAllPrenotazioni(int page, int size) {
+        if (size > 10) size = 10;
+        Pageable pageable = PageRequest.of(page, size);
+        return this.prenotazioneRepo.findAll(pageable);
     }
 }

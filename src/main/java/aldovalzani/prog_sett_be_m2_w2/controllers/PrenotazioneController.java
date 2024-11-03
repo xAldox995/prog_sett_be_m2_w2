@@ -5,6 +5,7 @@ import aldovalzani.prog_sett_be_m2_w2.entities.Prenotazione;
 import aldovalzani.prog_sett_be_m2_w2.exceptions.BadRequestException;
 import aldovalzani.prog_sett_be_m2_w2.services.PrenotazioneServ;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -30,5 +31,11 @@ public class PrenotazioneController {
             throw new BadRequestException("Ci sono errori nel payload! " + msg);
         }
         return this.prenotazioneServ.savePrenotazione(body);
+    }
+
+    @GetMapping
+    public Page<Prenotazione> findAllPrenotazioni(@RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size) {
+        return this.prenotazioneServ.findAllPrenotazioni(page, size);
     }
 }
