@@ -54,4 +54,10 @@ public class PrenotazioneController {
         }
         return this.prenotazioneServ.findPrenotazioneAndUp(id_prenotazione, body);
     }
+
+    @DeleteMapping("/{id_prenotazione}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void findPrenotazioneByIdAndDel(@PathVariable long id_prenotazione) {
+        this.prenotazioneServ.findPrenotazioneByIdAndDel(id_prenotazione);
+    }
 }

@@ -64,4 +64,9 @@ public class PrenotazioneServ {
         prenotazioneToUp.setViaggio(viaggioToMod);
         return this.prenotazioneRepo.save(prenotazioneToUp);
     }
+
+    public void findPrenotazioneByIdAndDel(long id_prenotazione) {
+        Prenotazione prenotazioneToDel = this.findDPrenotazioneById(id_prenotazione);
+        this.prenotazioneRepo.delete(prenotazioneToDel);
+    }
 }
