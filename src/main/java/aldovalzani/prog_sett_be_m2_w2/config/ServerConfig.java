@@ -13,7 +13,7 @@ public class ServerConfig {
     @Bean
     public Cloudinary getImageUploader(@Value("${cloudinary.name}") String cloudName,
                                        @Value("${cloudinary.key}") String apiKey,
-                                       @Value("${cloudinary.key}") String apiSecret) {
+                                       @Value("${cloudinary.secret}") String apiSecret) {
         Map<String, String> confing = new HashMap<>();
         confing.put("cloud_name", cloudName);
         confing.put("api_key", apiKey);
