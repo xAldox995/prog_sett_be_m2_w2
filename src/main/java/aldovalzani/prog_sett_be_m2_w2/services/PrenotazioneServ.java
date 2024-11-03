@@ -5,6 +5,7 @@ import aldovalzani.prog_sett_be_m2_w2.entities.Dipendente;
 import aldovalzani.prog_sett_be_m2_w2.entities.Prenotazione;
 import aldovalzani.prog_sett_be_m2_w2.entities.Viaggio;
 import aldovalzani.prog_sett_be_m2_w2.exceptions.BadRequestException;
+import aldovalzani.prog_sett_be_m2_w2.exceptions.NotFoundException;
 import aldovalzani.prog_sett_be_m2_w2.repositories.PrenotazioneRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,5 +40,10 @@ public class PrenotazioneServ {
         if (size > 10) size = 10;
         Pageable pageable = PageRequest.of(page, size);
         return this.prenotazioneRepo.findAll(pageable);
+    }
+
+    public Prenotazione findDPrenotazioneById(long id_prenotazione) {
+        return this.prenotazioneRepo.findById(id_prenotazione).
+                orElseThrow(() -> new NotFoundException(id_prenotazione));
     }
 }

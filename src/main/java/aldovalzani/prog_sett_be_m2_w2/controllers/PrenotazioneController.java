@@ -38,4 +38,9 @@ public class PrenotazioneController {
                                                   @RequestParam(defaultValue = "10") int size) {
         return this.prenotazioneServ.findAllPrenotazioni(page, size);
     }
+
+    @GetMapping("/{id_prenotazione}")
+    public Prenotazione findDPrenotazioneById(@PathVariable long id_prenotazione) {
+        return this.prenotazioneServ.findDPrenotazioneById(id_prenotazione);
+    }
 }
